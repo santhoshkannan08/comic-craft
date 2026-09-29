@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ComicCraft — AI Comic Story Creator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bangers&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
+    <div class="background-halftone"></div>
+    <main class="page-shell">
+      <!-- Hero Section -->
+      <section class="hero-card">
+        <div class="hero-glow"></div>
+        <div class="hero-copy">
+          <div class="eyebrow-container">
+            <span class="badge-accent">✨ POWERED BY GOOGLE GEMINI & AI</span>
+            <span class="badge-sub">5-PANEL STORY ENGINE</span>
+          </div>
+          <h1 class="comic-title">Comic<span class="title-highlight">Craft</span></h1>
+          <p class="subtitle">
+            Turn any spark of imagination into a fully scripted, illustrated 5-panel graphic comic strip complete with character dialogue, dramatic narration, and high-res printable PDF export.
+          </p>
+        </div>
+      </section>
+
+      <!-- Preset Prompts Section -->
+      <section class="presets-section">
+        <div class="section-heading">
+          <span class="sparkle-icon">⚡</span>
+          <h3>Quick-Start Story Starters</h3>
+          <p>Click any story template below to autofill and customize immediately:</p>
+        </div>
+        <div class="presets-grid">
+          <button
+            type="button"
+            class="preset-chip"
+            data-prompt="Captain Astra discovers an ancient glowing Dyson sphere in the outer rim of a forgotten galaxy, activating an ancient star map."
+            data-name="Captain Astra"
+            data-setting="Deep Orbit Oasis"
+            data-tone="Dramatic"
+            data-style="Comic Book"
+          >
+            <span class="preset-icon">🚀</span>
+            <span class="preset-info">
+              <strong>Starlight Nexus</strong>
+              <small>Sci-Fi • Astra</small>
+            </span>
+          </button>
+
+          <button
+            type="button"
+            class="preset-chip"
+            data-prompt="Detective Raven follows a trail of holographic encrypted memories through the neon-drenched alleys of Neo-Shibuya."
+            data-name="Detective Raven"
+            data-setting="Neo-Shibuya Alleyways"
+            data-tone="Dramatic"
+            data-style="Anime"
+          >
+            <span class="preset-icon">🕵️</span>
+            <span class="preset-info">
+              <strong>Cyberpunk Noir</strong>
+              <small>Cyberpunk • Raven</small>
+            </span>
+          </button>
+
+          <button
+            type="button"
+            class="preset-chip"
+            data-prompt="Ignis, an apprentice blacksmith, strikes a piece of meteorite steel only to awaken an ancient dormant fire sprite."
+            data-name="Ignis"
+            data-setting="Volcanic Mountain Forge"
+            data-tone="Poetic"
+            data-style="Realistic"
+          >
+            <span class="preset-icon">🐉</span>
+            <span class="preset-info">
+              <strong>Dragon's Forge</strong>
+              <small>Fantasy • Ignis</small>
+            </span>
+          </button>
+
+          <button
+            type="button"
+            class="preset-chip"
+            data-prompt="Barnaby the mischievous corgi accidentally eats an experimental quantum biscuit and can now teleport into the snack pantry."
+            data-name="Barnaby"
+            data-setting="Grandma's Kitchen Lab"
+            data-tone="Funny"
+            data-style="Pixel Art"
+          >
+            <span class="preset-icon">🐾</span>
+            <span class="preset-info">
+              <strong>Quantum Corgi</strong>
+              <small>Comedy • Barnaby</small>
+            </span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Main Form Section -->
+      <section class="form-card">
+        <div class="form-header">
+          <h2>Create Your Comic Issue</h2>
+          <p>Provide your concept details to generate outline, story script & panel illustrations.</p>
+        </div>
+
+        <form method="post" action="/generate" class="comic-form" id="comicForm">
+          <div class="field-group">
+            <div class="label-with-count">
+              <label for="story_prompt">Story Concept & Core Narrative</label>
+              <span class="char-count" id="promptCharCount">0 / 2000</span>
+            </div>
+            <textarea
+              id="story_prompt"
+              name="story_prompt"
+              rows="4"
+              placeholder="Describe what happens in your story... (e.g. A young explorer uncovers a mysterious sunken portal in the bioluminescent ocean depths)"
+              required
+              maxlength="2000"
+            ></textarea>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="character_name">Protagonist / Character Name</label>
+              <div class="input-icon-wrapper">
+                <span class="input-icon">👤</span>
+                <input
+                  id="character_name"
+                  name="character_name"
+                  type="text"
+                  placeholder="e.g. Nova, Kaelen, Detective Cruz"
+                  required
+                  maxlength="100"
+                />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="setting">Setting / World Location</label>
+              <div class="input-icon-wrapper">
+                <span class="input-icon">📍</span>
+                <input
+                  id="setting"
+                  name="setting"
+                  type="text"
+                  placeholder="e.g. Neo-Tokyo, Floating Sky Islands, Dark Dungeon"
+                  required
+                  maxlength="200"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="tone">Story Tone & Atmosphere</label>
+              <div class="select-wrapper">
+                <select id="tone" name="tone" required>
+                  <option value="Dramatic">🎭 Dramatic & Intense</option>
+                  <option value="Funny">😂 Humorous & Lighthearted</option>
+                  <option value="Light-hearted">☀️ Wholesome & Adventurous</option>
+                  <option value="Poetic">🌌 Poetic & Mysterious</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="art_style">Visual Art Style</label>
+              <div class="select-wrapper">
+                <select id="art_style" name="art_style" required>
+                  <option value="Comic Book">💥 Classic American Comic Book</option>
+                  <option value="Anime">⚡ Japanese Manga / Anime</option>
+                  <option value="Pixel Art">👾 Retro 16-Bit Pixel Art</option>
+                  <option value="Realistic">🎨 Cinematic Graphic Novel</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-footer">
+            <button type="submit" class="primary-button" id="generateButton">
+              <span class="btn-icon">⚡</span>
+              <span class="btn-text">Generate 5-Panel Comic</span>
+            </button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <!-- Loading Overlay Modal -->
+    <div class="loading-overlay" id="loadingOverlay" aria-live="polite" hidden>
+      <div class="loading-card">
+        <div class="comic-spinner-container">
+          <div class="comic-burst"></div>
+          <div class="spinner"></div>
+        </div>
+        <h2 id="loadingTitle">Crafting Your Comic Story...</h2>
+        <p id="loadingSub" class="loading-desc">Initializing AI narrative generator</p>
+        
+        <div class="progress-track">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="stages-indicator">
+          <div class="stage-step active" id="step1">
+            <span class="step-dot">1</span>
+            <span class="step-label">Outline</span>
+          </div>
+          <div class="stage-step" id="step2">
+            <span class="step-dot">2</span>
+            <span class="step-label">Script</span>
+          </div>
+          <div class="stage-step" id="step3">
+            <span class="step-dot">3</span>
+            <span class="step-label">Artwork</span>
+          </div>
+          <div class="stage-step" id="step4">
+            <span class="step-dot">4</span>
+            <span class="step-label">Layout & PDF</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/static/js/script.js"></script>
+  </body>
+</html>

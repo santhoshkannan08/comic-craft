@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ComicCraft — Issue Exported Successfully</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bangers&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
+    <div class="background-halftone"></div>
+    <main class="success-page">
+      <div class="success-card">
+        <div class="success-icon-badge">🎉</div>
+        <span class="badge-accent">PUBLICATION READY</span>
+        <h1 class="success-title">Your Comic Has Been Successfully Created!</h1>
+        <p class="subtitle">
+          Your 5-panel comic has been formatted and compiled into a high-resolution PDF issue ready for reading, sharing, and printing.
+        </p>
+
+        <div class="success-actions">
+          {% if pdf_path %}
+          <a class="primary-button" href="{{ pdf_path }}" download target="_blank" rel="noreferrer">
+            <span class="btn-icon">📥</span>
+            <span class="btn-text">Download PDF Issue</span>
+          </a>
+          <a class="secondary-button" href="{{ pdf_path }}" target="_blank" rel="noreferrer">
+            <span class="btn-icon">📖</span>
+            <span class="btn-text">Open in Reader</span>
+          </a>
+          {% endif %}
+          <a class="ghost-button" href="/">
+            <span class="btn-icon">⚡</span>
+            <span class="btn-text">Create Another Comic</span>
+          </a>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

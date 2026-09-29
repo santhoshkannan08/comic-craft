@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ComicCraft — Comic Preview & Download</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bangers&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
+    <div class="background-halftone"></div>
+    <main class="preview-page">
+      <!-- Comic Issue Header Banner -->
+      <header class="comic-issue-banner">
+        <div class="banner-top-row">
+          <div class="issue-tag">
+            <span class="comic-stamp">OFFICIAL ISSUE #01</span>
+            <span class="date-stamp">5-PANEL SPECIAL EDITION</span>
+          </div>
+          <div class="view-mode-toggle">
+            <button type="button" class="toggle-btn active" id="gridViewBtn" title="Grid View">
+              <span>⊞</span> Grid Spread
+            </button>
+            <button type="button" class="toggle-btn" id="stripViewBtn" title="Vertical Strip View">
+              <span>☰</span> Story Strip
+            </button>
+          </div>
+        </div>
+
+        <div class="comic-main-info">
+          <h1 class="preview-title">
+            {% if panels and panels[0].title %}
+              {{ panels[0].title }}
+            {% else %}
+              The Comic Chronicle
+            {% endif %}
+          </h1>
+
+          {% if meta %}
+          <div class="meta-pills-row">
+            <span class="meta-pill"><strong class="pill-key">HERO:</strong> {{ meta.character_name }}</span>
+            <span class="meta-pill"><strong class="pill-key">SETTING:</strong> {{ meta.setting }}</span>
+            <span class="meta-pill"><strong class="pill-key">STYLE:</strong> {{ meta.art_style }}</span>
+            <span class="meta-pill"><strong class="pill-key">TONE:</strong> {{ meta.tone }}</span>
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- Action Toolbar -->
+        <div class="preview-actions">
+          {% if pdf_path %}
+          <a class="primary-button download-btn" href="{{ pdf_path }}" download target="_blank" rel="noreferrer">
+            <span class="btn-icon">📥</span>
+            <span class="btn-text">Download Your Comic as PDF</span>
+          </a>
+          <a class="secondary-button" href="{{ pdf_path }}" target="_blank" rel="noreferrer">
+            <span class="btn-icon">👁️</span>
+            <span class="btn-text">Open PDF Reader</span>
+          </a>
+          {% endif %}
+          <button type="button" class="secondary-button" id="copyStoryBtn">
+            <span class="btn-icon">📋</span>
+            <span class="btn-text" id="copyBtnText">Copy Story Script</span>
+          </button>
+          <a class="ghost-button" href="/">
+            <span class="btn-icon">✏️</span>
+            <span class="btn-text">Create Another Comic</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- Panel Grid / Strip -->
+      <section class="panel-grid grid-mode" id="panelContainer">
+        {% for panel in panels %}
+        <article class="panel-card" id="panel-{{ panel.panel_number }}">
+          <div class="panel-header-badge">
+            <div class="panel-number-pill">
+              <span class="dot"></span>
+              <span>Panel {{ panel.panel_number }}</span>
+            </div>
+            <h2 class="panel-card-title">{{ panel.title }}</h2>
+          </div>
+
+          {% if panel.image_path %}
+          <div class="panel-image-wrapper">
+            <img
+              src="{{ panel.image_path }}"
+              alt="Panel {{ panel.panel_number }} - {{ panel.title }}"
+              class="panel-image"
+              loading="lazy"
+            />
+            <div class="panel-watermark">ComicCraft</div>
+          </div>
+          {% endif %}
+
+          <div class="panel-story-content">
+            {% if panel.narration %}
+            <!-- Yellow Comic Narration Box -->
+            <div class="narration-box">
+              <div class="box-tag">NARRATION</div>
+              <p>{{ panel.narration }}</p>
+            </div>
+            {% endif %}
+
+            {% if panel.dialogue %}
+            <!-- Speech Dialogue Bubble -->
+            <div class="speech-bubble">
+              <div class="bubble-tag">DIALOGUE</div>
+              <p class="bubble-text">“{{ panel.dialogue }}”</p>
+              <div class="speech-tail"></div>
+            </div>
+            {% endif %}
+
+            {% if panel.caption %}
+            <!-- Caption Ribbon -->
+            <div class="caption-ribbon">
+              <span class="ribbon-arrow">▶</span>
+              <span class="ribbon-text">{{ panel.caption }}</span>
+            </div>
+            {% endif %}
+          </div>
+        </article>
+        {% endfor %}
+      </section>
+
+      <!-- Bottom Floating Call-To-Action Footer -->
+      <footer class="preview-footer-card">
+        <div class="footer-copy">
+          <h3>Ready to publish your comic?</h3>
+          <p>Download the high-definition printable PDF or start a new adventure.</p>
+        </div>
+        <div class="footer-buttons">
+          {% if pdf_path %}
+          <a class="primary-button" href="{{ pdf_path }}" download target="_blank" rel="noreferrer">
+            <span>📥 Download PDF</span>
+          </a>
+          {% endif %}
+          <a class="secondary-button" href="/">
+            <span>⚡ Craft New Story</span>
+          </a>
+        </div>
+      </footer>
+    </main>
+
+    <!-- Hidden Raw Script for Copying -->
+    <textarea id="rawScriptData" style="display: none;" readonly>
+ComicCraft Issue - Story Script
+===================================
+{% for panel in panels %}
+[Panel {{ panel.panel_number }}: {{ panel.title }}]
+Scene: {{ panel.scene_description }}
+Narration: {{ panel.narration }}
+Dialogue: {{ panel.dialogue }}
+Caption: {{ panel.caption }}
+-----------------------------------
+{% endfor %}
+    </textarea>
+
+    <script src="/static/js/script.js"></script>
+  </body>
+</html>
