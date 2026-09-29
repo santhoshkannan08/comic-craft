@@ -6,3 +6,6 @@ __pycache__/
 *.log
 static/panels/*
 static/exports/*
+.venv/
+__pycache__/
+.venv/
